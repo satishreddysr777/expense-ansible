@@ -6,3 +6,35 @@
       ansible.builtin.dnf:
         name: nginx
         state: installed
+
+    - name: Copy expense configuration file
+      ansible.builtin.copy:
+        src: expense.conf
+        dest: /etc/nginx/default.d/expense.conf
+
+    - name: Remove existing content App folder
+      ansible.builtin.file:
+        path: /usr/share/nginx/html
+        state: absent
+
+    - name: Create a App folder
+      ansible.builtin.file:
+        path: /usr/share/nginx/html
+        state: directory
+
+    - name: Download application content
+      ansible.builtin.unarchive:
+        src: https://expense-artifacts.s3.amazonaws.com/frontend.zip
+        dest: /usr/share/nginx/html
+        remote_src: yes
+
+    - name: Enable service nginx
+      ansible.builtin.systemd_service:
+        name: nginx
+        enabled: true
+
+    - name: Start/Enable nginx service
+      ansible.builtin.systemd_service:
+        name: nginx
+        enabled: true
+        state: reloaded
