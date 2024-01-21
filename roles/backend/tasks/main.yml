@@ -45,7 +45,7 @@
 
 - name: Install Dependencies [MySQL, python3-PyMySQL]
   ansible.builtin.dnf:
-    name: {{ item }}
+    name: "{{ item }}"
     state: installed
   loop:
     - mysql
