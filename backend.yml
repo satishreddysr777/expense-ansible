@@ -60,7 +60,7 @@
 
     - name: Loading mysql schema
       community.mysql.mysql_db:
-        state: dump
+        state: import
         name: all
         target: /app/schema/backend.sql
         login_user: root
