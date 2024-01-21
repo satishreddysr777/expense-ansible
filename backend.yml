@@ -46,7 +46,7 @@
       ansible.builtin.systemd_service:
         name: backend
         state: restarted
-        enable: true
+        enabled: true
 
     - name: Installing mysql client
       ansible.builtin.dnf:
