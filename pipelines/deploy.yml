@@ -21,6 +21,51 @@ pipelines:
               timeout: 0
               tasks:
                 - exec:
+                    command: ansible-playbook
+                    arguments: ["-i", "backend-dev.satishreddy.org,", "-e", "ansible_user=centos", "-e", "ansible_password=DevOps321", "expense.yml", "-e", "service_name=backend", "-e", "env=dev"]
+
+      - STAGE:
+          fetch_materials: true
+          approval:
+            type: manual
+          jobs:
+            deployment:
+              timeout: 0
+              tasks:
+                - exec:
+                    command: ls
+                    arguments:
+                      - -l
+                      - -A
+                    run_if: passed
+
+
+      - UAT:
+          fetch_materials: true
+          approval:
+            type: manual
+          jobs:
+            deployment:
+              timeout: 0
+              tasks:
+                - exec:
+                    command: ls
+                    arguments:
+                      - -l
+                      - -A
+                    run_if: passed
+
+
+
+      - PROD:
+          fetch_materials: true
+          approval:
+            type: manual
+          jobs:
+            deployment:
+              timeout: 0
+              tasks:
+                - exec:
                     command: ls
                     arguments:
                       - -l
